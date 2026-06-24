@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  app:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,9 +17,9 @@ services:
       context: .
       dockerfile: Dockerfile.e2e
     depends_on:
-      - app
+      - web
     environment:
-      - PLAYWRIGHT_TEST_BASE_URL=http://app:5173
+      - PLAYWRIGHT_TEST_BASE_URL=http://web:5173
     volumes:
       - ./playwright-report:/app/playwright-report
       - ./test-results:/app/test-results
