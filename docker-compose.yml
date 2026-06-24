@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - test-network
+
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e
+    depends_on:
+      - app
+    environment:
+      - PLAYWRIGHT_TEST_BASE_URL=http://app:5173
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    networks:
+      - test-network
+    # Run tests on startup. Note: depending on 'app' just waits for the container to start, 
+    # so we might need playwright to retry or use a wait script if the app takes too long to serve.
+    # Playwright's config already handles waiting for the URL.
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  ollama_data:

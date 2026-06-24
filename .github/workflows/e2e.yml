@@ -1,0 +1,52 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build React App
+      run: npm run build
+
+    - name: Start Docker Container
+      # Starts the Vite preview app container in the background
+      run: docker-compose up --build -d app
+      
+    - name: Run Playwright Tests
+      # Runs the playwright container and ensures the workflow fails if tests fail
+      run: docker-compose up --build --exit-code-from playwright playwright
+
+    - name: Publish Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
+
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: test-results/
+        retention-days: 30

@@ -1,0 +1,18 @@
+# Dockerfile.e2e
+# Base image containing Playwright and browsers
+FROM mcr.microsoft.com/playwright:v1.50.1-jammy
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (npm ci installs matching playwright binary internally)
+RUN npm ci
+
+# Copy the rest of the application
+COPY . .
+
+# Set default command to run playwright tests
+CMD ["npx", "playwright", "test"]
