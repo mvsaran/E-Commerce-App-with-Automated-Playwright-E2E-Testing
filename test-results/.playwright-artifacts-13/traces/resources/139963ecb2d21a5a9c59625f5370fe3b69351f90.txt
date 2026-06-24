@@ -1,2 +1,0 @@
-Blocked request. This host ("web") is not allowed.
-To allow this host, add "web" to `preview.allowedHosts` in vite.config.js.
