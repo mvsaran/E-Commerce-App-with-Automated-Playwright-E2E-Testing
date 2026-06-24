@@ -29,11 +29,11 @@ jobs:
 
     - name: Start Docker Container
       # Starts the Vite preview app container in the background
-      run: docker-compose up --build -d app
+      run: docker compose up --build -d app
       
     - name: Run Playwright Tests
       # Runs the playwright container and ensures the workflow fails if tests fail
-      run: docker-compose up --build --exit-code-from playwright playwright
+      run: docker compose up --build --exit-code-from playwright playwright
 
     - name: Publish Reports
       if: always()
