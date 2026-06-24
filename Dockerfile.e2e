@@ -1,6 +1,6 @@
 # Dockerfile.e2e
 # Base image containing Playwright and browsers
-FROM mcr.microsoft.com/playwright:v1.50.1-jammy
+FROM mcr.microsoft.com/playwright:v1.61.1-jammy
 
 # Set working directory
 WORKDIR /app
