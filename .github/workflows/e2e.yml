@@ -30,6 +30,12 @@ jobs:
     - name: Start Docker Container
       # Starts the Vite preview app container in the background
       run: docker compose up --build -d web
+
+    - name: Wait for Web Server
+      run: |
+        echo "Waiting for web server to be ready..."
+        timeout 30 bash -c 'until curl -s http://localhost:5173 > /dev/null; do sleep 1; done'
+        echo "Web server is ready!"
       
     - name: Run Playwright Tests
       # Runs the playwright container and ensures the workflow fails if tests fail

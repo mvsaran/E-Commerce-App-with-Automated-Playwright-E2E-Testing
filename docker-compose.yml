@@ -25,6 +25,7 @@ services:
       - ./test-results:/app/test-results
     networks:
       - test-network
+    ipc: host
     # Run tests on startup. Note: depending on 'app' just waits for the container to start, 
     # so we might need playwright to retry or use a wait script if the app takes too long to serve.
     # Playwright's config already handles waiting for the URL.
