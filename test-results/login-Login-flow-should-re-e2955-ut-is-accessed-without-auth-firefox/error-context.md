@@ -20,7 +20,7 @@ Timeout:  5000ms
 
 Call log:
   - Expect "toHaveURL" with timeout 5000ms
-    14 × unexpected value "http://web:5173/checkout"
+    12 × unexpected value "http://web:5173/checkout"
 
 ```
 
