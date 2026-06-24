@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, FC } from 'react';
+import { useState, type ChangeEvent, type FormEvent, type FC } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';

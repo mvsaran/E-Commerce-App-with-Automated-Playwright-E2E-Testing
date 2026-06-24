@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type FC, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type FC, type ReactNode } from 'react';
 import type { User } from '../types';
 
 interface AuthContextType {

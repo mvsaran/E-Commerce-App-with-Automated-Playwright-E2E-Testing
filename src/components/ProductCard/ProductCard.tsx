@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import type { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
 import { Button } from '../Button/Button';
